@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Gaegu Regular';
+  font-weight: normal;
+  font-style: normal;
+  src:url(Gaegu-Regular.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Gamja Flower Regular';
+  font-weight: normal;
+  font-style: normal;
+  src:url(GamjaFlower-Regular.ttf) format('ttf');
+}
+
+.f8ij4m {
+  color: red;
+}
+
+.p8otxr {
+  color: blue;
+}

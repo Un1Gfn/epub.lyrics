@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" dir="ltr" xml:lang="en" unique-identifier="pub-id" version="3.0">
+	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+		<dc:identifier id="pub-id">code.google.com.epub-samples.hefty.water</dc:identifier>
+		<dc:title id="pub-title" dir="ltr">lsqyiq</dc:title>
+		<dc:language>ko</dc:language>
+		<dc:date>2023-08-11</dc:date>
+		<meta property="dcterms:modified" dir="ltr">2023-08-11T03:48:18Z</meta> <!-- gdate -u -Is | ghead -c -7; echo Z -->
+		<!-- <meta property="rendition:layout">reflowable</meta> -->
+		<!-- <meta property="rendition:orientation">auto</meta> -->
+		<!-- <meta property="rendition:spread">none</meta> -->
+		<!-- <meta property="rendition:flow">scrolled-continuous</meta> -->
+		<!-- epub3.best.practices//3.content.documents//covers -->
+		<!-- for epub2 --> <!-- <meta name="cover" content="c8t" /> -->
+	</metadata>
+	<manifest>
+		<!--  -->
+		<item id="css.monolithic" href="../RES/style.css" media-type="text/css"/>
+		<item id="font.Gaegu.bold" href="../RES/Gaegu-Bold.ttf" media-type="font/ttf"/>
+		<item id="font.Gaegu.light" href="../RES/Gaegu-Light.ttf" media-type="font/ttf"/>
+		<item id="font.Gaegu.regular" href="../RES/Gaegu-Regular.ttf" media-type="font/ttf"/>
+		<item id="font.GamjaFlower.regular" href="../RES/GamjaFlower-Regular.ttf" media-type="font/ttf"/>
+		<item id="blank" href="blank.xhtml" media-type="application/xhtml+xml"/>
+		<!--  -->
+		<item properties="cover-image" id="c8t" href="hunminjeongeum.png" media-type="image/png" />
+		<item properties="nav"         id="nav" href="nav.xhtml"          media-type="application/xhtml+xml"/>
+		<!--  -->
+		<item id="about" href="about.xhtml" media-type="application/xhtml+xml"/>
+		<item id="뱀파이어" href="baempaieo.xhtml" media-type="application/xhtml+xml"/>
+		<!-- <item id="doc" href="heftywater.xhtml" media-type="application/xhtml+xml" properties="switch"/> -->
+	</manifest>
+	<spine page-progression-direction="ltr">
+		<itemref idref="about"/>
+		<itemref idref="blank"/>
+		<itemref idref="뱀파이어"/>
+		<!-- <itemref idref="doc"/> -->
+	</spine>
+</package>
