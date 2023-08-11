@@ -3,7 +3,7 @@
 	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
 		<dc:identifier id="pub-id">code.google.com.epub-samples.hefty.water</dc:identifier>
 		<dc:title id="pub-title" dir="ltr">lsqyiq</dc:title>
-		<dc:language>ko</dc:language>
+		<dc:language>en-US</dc:language>
 		<dc:date>2023-08-11</dc:date>
 		<meta property="dcterms:modified" dir="ltr">2023-08-11T03:48:18Z</meta> <!-- gdate -u -Is | ghead -c -7; echo Z -->
 		<!-- <meta property="rendition:layout">reflowable</meta> -->

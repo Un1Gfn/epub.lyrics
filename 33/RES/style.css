@@ -1,21 +1,40 @@
 @font-face {
-  font-family: 'Gaegu Regular';
-  font-weight: normal;
-  font-style: normal;
-  src:url(Gaegu-Regular.ttf) format('ttf');
+  font-family: 'Gaegu One';
+  font-weight: bold;
+  src:url(Gaegu-Bold.ttf);
 }
 
 @font-face {
-  font-family: 'Gamja Flower Regular';
+  font-family: 'Gaegu Two';
+  font-weight: lighter;
+  src:url(Gaegu-Light.ttf);
+}
+
+@font-face {
+  font-family: 'Gaegu Three';
   font-weight: normal;
-  font-style: normal;
-  src:url(GamjaFlower-Regular.ttf) format('ttf');
+  src:url(Gaegu-Regular.ttf);
 }
 
-.f8ij4m {
-  color: red;
+@font-face {
+  font-family: 'Gamja Flower';
+  font-weight: normal;
+  src:url(GamjaFlower-Regular.ttf);
 }
 
-.p8otxr {
+.gaegu.bold {
+  font-family: 'Gaegu One', cursive;
+}
+
+.gaegu.light {
+  font-family: 'Gaegu Two', cursive;
+}
+
+.gaegu {
+  font-family: 'Gaegu Three', cursive;
+}
+
+.gamjaflower {
+  font-family: 'Gamja Flower', cursive;
   color: blue;
 }
