@@ -1,40 +1,56 @@
 @font-face {
-  font-family: 'Gaegu One';
-  font-weight: bold;
-  src:url(Gaegu-Bold.ttf);
-}
-
-@font-face {
-  font-family: 'Gaegu Two';
-  font-weight: lighter;
-  src:url(Gaegu-Light.ttf);
-}
-
-@font-face {
-  font-family: 'Gaegu Three';
-  font-weight: normal;
-  src:url(Gaegu-Regular.ttf);
+  font-family: 'Noto Sans KR';
+  src:url(NotoSansKR-Regular.otf);
 }
 
 @font-face {
   font-family: 'Gamja Flower';
-  font-weight: normal;
   src:url(GamjaFlower-Regular.ttf);
 }
 
-.gaegu.bold {
-  font-family: 'Gaegu One', cursive;
+@font-face {
+  font-family: 'Gaegu';
+  src:url(Gaegu-Regular.ttf);
 }
 
-.gaegu.light {
-  font-family: 'Gaegu Two', cursive;
+@font-face {
+  font-family: 'Gaegu Bold';
+  src:url(Gaegu-Bold.ttf);
 }
 
-.gaegu {
-  font-family: 'Gaegu Three', cursive;
+@font-face {
+  font-family: 'Gaegu Light';
+  src:url(Gaegu-Light.ttf);
 }
 
 .gamjaflower {
   font-family: 'Gamja Flower', cursive;
   color: blue;
+}
+
+.gaegu {
+  font-family: 'Gaegu', cursive;
+}
+
+.gaegu.bold {
+  font-family: 'Gaegu Bold', cursive;
+}
+
+.gaegu.light {
+  font-family: 'Gaegu Light', cursive;
+}
+
+p {
+  text-indent: 0;
+  font-family: 'Gamja Flower';
+}
+
+.p7skbc {
+  /* Galaxy A53 1080x2400 */
+  /* color: brown; */
+  /* border-style: solid; */
+  padding-top: 768px;
+  /* margin-top: 1000px; */
+  /* padding-bottom: 3000px; */
+  /* margin-bottom: 3000px; */
 }

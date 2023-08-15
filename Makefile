@@ -5,27 +5,30 @@
 
 # https://www.w3.org/TR/epub-33/#sec-container-filenames
 
-# 👀 ⏳ https://www.w3.org/TR/epub-33/#sec-spine-elem
+# 👀 ⏳ https://www.w3.org/TR/epub-33/#sec-pkg-spine
+# 👀 ⏳ https://www.w3.org/TR/epub-multi-rend-11/
 
 T:=/sdcard/Download/epub.eyyntk.d
 
 default:
 	$(MAKE) clean
 	$(MAKE) pack
-	$(MAKE) adb
-	# $(MAKE) view
 
 clean:
-	grm -fv 33-*.epub
+	grm -fv 33.epub
 
 # --failonwarnings
 pack:
 	epubcheck 33/ -mode exp --save -w -u
-	gmv -vi 33.epub 33-$(shell gdate +%s).epub
+
+share:
+	T=/tmp/33-$$(gdate +%s).epub; \
+	gcp -v 33.epub $$T; \
+	sudo zsh /usr/local/bin/tgbot.zsh $$T; \
+	grm -v $$T
 
 adb:
-	adb shell 'mkdir -v $(T); rm -fv $(T)/*'
-	adb push 33-* /sdcard/Download/epub.eyyntk.d/
+	adb push 33.epub /sdcard/Download/Telegram/33-$(shell gdate +%s).epub
 
 view:
 	open ./33-*.epub
