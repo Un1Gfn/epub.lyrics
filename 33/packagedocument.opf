@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- wishlist (refer to packagedocuments.opf)
+	つよくなれる / 鬼滅の刃 / https://youtu.be/XJVBNJZhg2s
+	
+
+-->
+<package xmlns="http://www.idpf.org/2007/opf" dir="ltr" xml:lang="en" unique-identifier="pub-id" version="3.0">
+	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+		<dc:identifier id="pub-id">urn:uuid:6401CFBE-2E95-4C35-9440-63754C69C9C0</dc:identifier>
+		<dc:language>en</dc:language>
+		<dc:title dir="ltr">Darren's Songbook</dc:title>
+		<dc:date>2023-08-12</dc:date>
+		<meta property="dcterms:modified" dir="ltr">2023-08-12T16:04:00Z</meta> <!-- gdate -u -Is | ghead -c -7; echo Z -->
+		<meta name="cover" content="bd76wk"/>
+		<!-- <meta property="rendition:layout">reflowable</meta> -->
+		<!-- <meta property="rendition:orientation">auto</meta> -->
+		<!-- <meta property="rendition:spread">none</meta> -->
+		<!-- <meta property="rendition:flow">scrolled-continuous</meta> -->
+		<!-- epub3.best.practices//3.content.documents//covers -->
+		<!-- for epub2 --> <!-- <meta name="cover" content="c8t" /> -->
+	</metadata>
+	<manifest>
+		<!--  -->
+		<item media-type="image/png" href="RES/hunminjeongeum.png" id="bd76wk" properties="cover-image"/>
+		<item media-type="application/xhtml+xml" href="MISC/cover_wrapper.xhtml" id="cover_wrapper"/>
+		<!--  -->
+		<item media-type="text/css" id="css.monolithic" href="RES/style.css"/>
+		<item media-type="font/otf" id="font.NotoSansKR" href="RES/NotoSansKR-Regular.otf" />
+		<item media-type="font/ttf" id="font.Gaegu.bold" href="RES/Gaegu-Bold.ttf"/>
+		<item media-type="font/ttf" id="font.Gaegu.light" href="RES/Gaegu-Light.ttf"/>
+		<item media-type="font/ttf" id="font.Gaegu.regular" href="RES/Gaegu-Regular.ttf"/>
+		<item media-type="font/ttf" id="font.GamjaFlower.regular" href="RES/GamjaFlower-Regular.ttf"/>
+		<!--  -->
+		<item media-type="application/xhtml+xml" href="MISC/nav.xhtml" id="nav" properties="nav" />
+		<item media-type="application/xhtml+xml" href="MISC/about.xhtml" id="about"/>
+		<item media-type="application/xhtml+xml" href="MISC/blank.xhtml" id="blank"/>
+		<!--  -->
+		<item media-type="audio/mp4" href="LRC/baempaieo.m4a" id="뱀파이어_음성"/>
+		<item media-type="audio/mp4" href="LRC/binnandamyeon.m4a" id="빛난다면_음성"/>
+		<item media-type="audio/mp4" href="LRC/gireul_mandeusineun_bun.m4a" id="길을_만드시는_분_음성"/>
+		<item media-type="audio/mp4" href="LRC/guncheong.m4a" id="군청_음성"/>
+		<item media-type="audio/mp4" href="LRC/gwiyeowoseo_mianhae.m4a" id="귀여워서_미안해_음성"/>
+		<item media-type="audio/mp4" href="LRC/hip.m4a" id="HIP_음성"/>
+		<item media-type="audio/mp4" href="LRC/jongwihan_eorinyang.m4a" id="존귀한_어린양_음성"/>
+		<item media-type="audio/mp4" href="LRC/remon.m4a" id="레몬_음성"/>
+		<!--  -->
+		<!-- <item media-type="application/xhtml+xml" id="doc" href="heftywater.xhtml" properties="switch"/> -->
+		<item media-type="application/xhtml+xml" href="LRC/baempaieo.xhtml" id="뱀파이어"/>
+		<item media-type="application/xhtml+xml" href="LRC/binnandamyeon.xhtml" id="빛난다면"/>
+		<item media-type="application/xhtml+xml" href="LRC/gireul_mandeusineun_bun.xhtml" id="길을_만드시는_분"/>
+		<item media-type="application/xhtml+xml" href="LRC/guncheong.xhtml" id="군청"/>
+		<item media-type="application/xhtml+xml" href="LRC/gwiyeowoseo_mianhae.xhtml" id="귀여워서_미안해"/>
+		<item media-type="application/xhtml+xml" href="LRC/hip.xhtml" id="HIP"/>
+		<item media-type="application/xhtml+xml" href="LRC/jongwihan_eorinyang.xhtml" id="존귀한_어린양"/>
+		<item media-type="application/xhtml+xml" href="LRC/remon.xhtml" id="레몬"/>
+	</manifest>
+	<spine page-progression-direction="ltr">
+		<!--  -->
+		<itemref idref="cover_wrapper"/>
+		<itemref idref="about"/>
+		<itemref idref="blank"/>
+		<!--  -->
+		<itemref idref="뱀파이어"/>
+		<itemref idref="빛난다면"/>
+		<itemref idref="길을_만드시는_분"/>
+		<itemref idref="군청"/>
+		<itemref idref="귀여워서_미안해"/>
+		<itemref idref="HIP"/>
+		<itemref idref="존귀한_어린양"/>
+		<itemref idref="레몬"/>
+		<!-- <itemref idref="doc"/> -->
+	</spine>
+</package>

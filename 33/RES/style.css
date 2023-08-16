@@ -45,6 +45,7 @@ p {
   font-family: 'Gamja Flower';
 }
 
+/* END mark */
 .p7skbc {
   /* Galaxy A53 1080x2400 */
   /* color: brown; */
@@ -53,4 +54,9 @@ p {
   /* margin-top: 1000px; */
   /* padding-bottom: 3000px; */
   /* margin-bottom: 3000px; */
+}
+
+/* less important text */
+.x1p8df {
+  color: gray;
 }

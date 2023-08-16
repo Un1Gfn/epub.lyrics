@@ -8,9 +8,14 @@
 # 👀 ⏳ https://www.w3.org/TR/epub-33/#sec-pkg-spine
 # 👀 ⏳ https://www.w3.org/TR/epub-multi-rend-11/
 
-T:=/sdcard/Download/epub.eyyntk.d
+# wishlist (refer to packagedocuments.opf)
 
-default:
+T:=/sdcard/Download/epub.eyyntk.d
+MAKEFLAGS=-j 1
+
+default: all
+
+all:
 	$(MAKE) clean
 	$(MAKE) pack
 
