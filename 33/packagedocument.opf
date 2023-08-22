@@ -36,12 +36,18 @@
 		<item media-type="application/xhtml+xml" href="MISC/blank.xhtml" id="blank"/>
 		<!--  -->
 		<item media-type="audio/mp4" href="LRC/baempaieo.m4a" id="뱀파이어_음성"/>
+		<item media-type="audio/mp4" href="LRC/binnandamyeon_ja.m4a" id="뱀파이어_일본어_음성"/>
 		<item media-type="audio/mp4" href="LRC/binnandamyeon.m4a" id="빛난다면_음성"/>
 		<item media-type="audio/mp4" href="LRC/gireul_mandeusineun_bun.m4a" id="길을_만드시는_분_음성"/>
+		<item media-type="audio/mp4" href="LRC/guncheong_ja.m4a" id="군청_일본어_음성"/>
 		<item media-type="audio/mp4" href="LRC/guncheong.m4a" id="군청_음성"/>
+		<item media-type="audio/mp4" href="LRC/gwiyeowoseo_mianhae_ja.m4a" id="귀여워서_미안해_일본어_음성"/>
 		<item media-type="audio/mp4" href="LRC/gwiyeowoseo_mianhae.m4a" id="귀여워서_미안해_음성"/>
 		<item media-type="audio/mp4" href="LRC/hip.m4a" id="HIP_음성"/>
+		<item media-type="audio/mp4" href="LRC/hongnyeonhwa_ja.m4a" id="홍련화_일본어_음성"/>
+		<item media-type="audio/mp4" href="LRC/hongnyeonhwa.m4a" id="홍련화_음성"/>
 		<item media-type="audio/mp4" href="LRC/jongwihan_eorinyang.m4a" id="존귀한_어린양_음성"/>
+		<item media-type="audio/mp4" href="LRC/remon_ja.m4a" id="레몬_일본어_음성"/>
 		<item media-type="audio/mp4" href="LRC/remon.m4a" id="레몬_음성"/>
 		<!--  -->
 		<!-- <item media-type="application/xhtml+xml" id="doc" href="heftywater.xhtml" properties="switch"/> -->
@@ -51,6 +57,7 @@
 		<item media-type="application/xhtml+xml" href="LRC/guncheong.xhtml" id="군청"/>
 		<item media-type="application/xhtml+xml" href="LRC/gwiyeowoseo_mianhae.xhtml" id="귀여워서_미안해"/>
 		<item media-type="application/xhtml+xml" href="LRC/hip.xhtml" id="HIP"/>
+		<item media-type="application/xhtml+xml" href="LRC/hongnyeonhwa.xhtml" id="홍련화"/>
 		<item media-type="application/xhtml+xml" href="LRC/jongwihan_eorinyang.xhtml" id="존귀한_어린양"/>
 		<item media-type="application/xhtml+xml" href="LRC/remon.xhtml" id="레몬"/>
 	</manifest>
@@ -66,6 +73,7 @@
 		<itemref idref="군청"/>
 		<itemref idref="귀여워서_미안해"/>
 		<itemref idref="HIP"/>
+		<itemref idref="홍련화"/>
 		<itemref idref="존귀한_어린양"/>
 		<itemref idref="레몬"/>
 		<!-- <itemref idref="doc"/> -->

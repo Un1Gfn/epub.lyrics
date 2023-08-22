@@ -18,22 +18,38 @@ default: all
 all:
 	$(MAKE) clean
 	$(MAKE) pack
+	$(MAKE) inspect
 
 clean:
 	grm -fv 33.epub
 
+# --save
 # --failonwarnings
+# epubcheck 33/ -mode exp --save -w -u
 pack:
-	epubcheck 33/ -mode exp --save -w -u
+	cd 33/; zip -0 -X -r ../33.epub mimetype packagedocument.opf META-INF/ RES/ MISC/ LRC/
+	@echo
+	epubcheck 33.epub -w -u
+	@echo
+
+inspect:
+	gls -Alh 33.epub
 
 share:
-	T=/tmp/33-$$(gdate +%s).epub; \
+	T=/tmp/33-$$(gdate +%s)-tgbot.epub; \
 	gcp -v 33.epub $$T; \
 	sudo zsh /usr/local/bin/tgbot.zsh $$T; \
 	grm -v $$T
 
 adb:
-	adb push 33.epub /sdcard/Download/Telegram/33-$(shell gdate +%s).epub
+	@echo
+	adb devices
+	adb shell uname -a
+	@echo
+	adb shell sleep 1
+	@echo
+	adb push 33.epub /sdcard/Download/Telegram/33-$(shell gdate +%s)-adb.epub
+	@echo
 
 view:
 	open ./33-*.epub
