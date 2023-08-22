@@ -30,25 +30,26 @@
 		<item media-type="font/ttf" id="font.Gaegu.light" href="RES/Gaegu-Light.ttf"/>
 		<item media-type="font/ttf" id="font.Gaegu.regular" href="RES/Gaegu-Regular.ttf"/>
 		<item media-type="font/ttf" id="font.GamjaFlower.regular" href="RES/GamjaFlower-Regular.ttf"/>
+		<item media-type="font/ttf" id="font.K" href="RES/UDDigiKyokashoN-R.ttf"/>
 		<!--  -->
 		<item media-type="application/xhtml+xml" href="MISC/nav.xhtml" id="nav" properties="nav" />
 		<item media-type="application/xhtml+xml" href="MISC/about.xhtml" id="about"/>
 		<item media-type="application/xhtml+xml" href="MISC/blank.xhtml" id="blank"/>
 		<!--  -->
-		<item media-type="audio/mp4" href="LRC/baempaieo.m4a" id="뱀파이어_음성"/>
-		<item media-type="audio/mp4" href="LRC/binnandamyeon_ja.m4a" id="뱀파이어_일본어_음성"/>
-		<item media-type="audio/mp4" href="LRC/binnandamyeon.m4a" id="빛난다면_음성"/>
-		<item media-type="audio/mp4" href="LRC/gireul_mandeusineun_bun.m4a" id="길을_만드시는_분_음성"/>
-		<item media-type="audio/mp4" href="LRC/guncheong_ja.m4a" id="군청_일본어_음성"/>
-		<item media-type="audio/mp4" href="LRC/guncheong.m4a" id="군청_음성"/>
-		<item media-type="audio/mp4" href="LRC/gwiyeowoseo_mianhae_ja.m4a" id="귀여워서_미안해_일본어_음성"/>
-		<item media-type="audio/mp4" href="LRC/gwiyeowoseo_mianhae.m4a" id="귀여워서_미안해_음성"/>
-		<item media-type="audio/mp4" href="LRC/hip.m4a" id="HIP_음성"/>
-		<item media-type="audio/mp4" href="LRC/hongnyeonhwa_ja.m4a" id="홍련화_일본어_음성"/>
-		<item media-type="audio/mp4" href="LRC/hongnyeonhwa.m4a" id="홍련화_음성"/>
-		<item media-type="audio/mp4" href="LRC/jongwihan_eorinyang.m4a" id="존귀한_어린양_음성"/>
-		<item media-type="audio/mp4" href="LRC/remon_ja.m4a" id="레몬_일본어_음성"/>
-		<item media-type="audio/mp4" href="LRC/remon.m4a" id="레몬_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/baempaieo.m4a" id="뱀파이어_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/binnandamyeon_ja.m4a" id="뱀파이어_일본어_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/binnandamyeon.m4a" id="빛난다면_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/gireul_mandeusineun_bun.m4a" id="길을_만드시는_분_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/guncheong_ja.m4a" id="군청_일본어_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/guncheong.m4a" id="군청_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/gwiyeowoseo_mianhae_ja.m4a" id="귀여워서_미안해_일본어_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/gwiyeowoseo_mianhae.m4a" id="귀여워서_미안해_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/hip.m4a" id="HIP_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/hongnyeonhwa_ja.m4a" id="홍련화_일본어_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/hongnyeonhwa.m4a" id="홍련화_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/jongwihan_eorinyang.m4a" id="존귀한_어린양_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/remon_ja.m4a" id="레몬_일본어_음성"/>
+		<item media-type="audio/mp4" href="AUDIO/remon.m4a" id="레몬_음성"/>
 		<!--  -->
 		<!-- <item media-type="application/xhtml+xml" id="doc" href="heftywater.xhtml" properties="switch"/> -->
 		<item media-type="application/xhtml+xml" href="LRC/baempaieo.xhtml" id="뱀파이어"/>

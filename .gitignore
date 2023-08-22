@@ -1,15 +1,15 @@
 
-/*.epub
+*.epub
 
-/33/RES/*.ttf
-/33/RES/*.otf
+*.ttf
+*.otf
 
-/*.zip
+*.zip
 
 /tgbot.chatid
 
-/33/LRC/*.m4a
+*.m4a
 
-/*.mp4
+*.mp4
 
 .DS_Store

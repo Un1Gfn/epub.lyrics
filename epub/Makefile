@@ -27,7 +27,7 @@ clean:
 # --failonwarnings
 # epubcheck 33/ -mode exp --save -w -u
 pack:
-	cd 33/; zip -0 -X -r ../33.epub mimetype packagedocument.opf META-INF/ RES/ MISC/ LRC/
+	cd 33/; zip -0 -X -r ../33.epub mimetype packagedocument.opf META-INF/ MISC/ LRC/ RES/ AUDIO/
 	@echo
 	epubcheck 33.epub -w -u
 	@echo

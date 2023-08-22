@@ -23,6 +23,11 @@
 	src:url(Gaegu-Light.ttf);
 }
 
+@font-face {
+	font-family: 'UD Digi Kyokasho N-R';
+	src:url(UDDigiKyokashoN-R.ttf);
+}
+
 .gamjaflower {
 	font-family: 'Gamja Flower', cursive;
 	color: blue;
@@ -59,4 +64,9 @@ p {
 /* less important text */
 .x1p8df {
 	color: gray;
+}
+
+/* Japanese text */
+.q0o2z1 {
+	font-family: 'UD Digi Kyokasho N-R'
 }
