@@ -7,10 +7,8 @@
 
 %%
 
-[a-zA-Z]+       {yylval.u_str=strdup(yytext); return somestring;}
-[ \t\n]         ;
-[;/{}]          {return yytext[0];}
-.               {ECHO; yyerror ("unexpected character");}
+[/{}()]     {return yytext[0];}
+[^/{}()]+   {yylval.u_str=strdup(yytext); return stuffinside;}
 
 %%
 

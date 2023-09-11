@@ -14,23 +14,20 @@
 
 %start root
 
-%token <u_str> somestring
+%token <u_str> stuffinside
 
 /* %type <u_num> root */
 
 %%
 
-root: something ';'      {;}
-  | root something ';'   {;}
+root: something      {;}
+  | root something   {;}
   ;
 
-something: '{' somestring '/' somestring '}' {
-  printf("<ruby>%s<rt>%s</rt>\n", $2, $4);
-  free($2);
-  free($4);
-  $2 = NULL;
-  $4 = NULL;
-} ;
+something: stuffinside                    {printf("%s\n", $1); free($1); $1=NULL;}
+  | '{' stuffinside '/' stuffinside '}'   {printf("<ruby>%s<rt>%s</rt>\n", $2, $4); free($2); free($4); $2=NULL; $4=NULL;}
+  | '(' stuffinside ')'                   {printf("<span class=\"x1p8df\">%s</span>\n", $2); free($2); $2=NULL;}
+  ;
 
 %%
 

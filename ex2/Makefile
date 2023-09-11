@@ -20,7 +20,7 @@ LDLIBS:=-lfl
 default:
 	$(MAKE) clean
 	$(MAKE) calc.out
-	./calc.out <<<"{x/y};{laksjdfksjdf/xnxnxb};"	
+	./calc.out <<<"{x/y}alksdjf{mx92jdf/MMM}alsdkfj(93j)sdf"
 
 calc.out: y.tab.c lex.yy.c
 	$(C) -o $@ $^
