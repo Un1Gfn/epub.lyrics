@@ -1,0 +1,19 @@
+TODO list
+
+1.
+case NonHangul
+  case NonPronounceable # whitespace, punctuation, symbol
+    sNonHangul += uCur
+  case Pronounceable # etc.
+    emit(uPrev, uPrevM)
+    print sNonHangul
+    sNonHangul, uPrev, uPrevM <- "", None, None
+
+2.
+what does yacc/bison do?
+
+3.
+incorporate scanner into python together
+https://docs.python.org/3/extending/extending.html
+
+

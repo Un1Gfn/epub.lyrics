@@ -1,0 +1,36 @@
+pseudocode
+
+def uPrev uEOF
+def uPrevM uEOF
+def sNonHangul str()
+
+mutate1(h)
+  ...
+
+mutate2(h1, h2)
+  ...
+
+emit(h,hh)
+  if h is identical to hh
+    print h
+  else
+    print h with ruby hh
+
+infinite loop
+  read uCur from stdin
+  switch uCur
+    case EOF
+      emit(uPrev, uPrevM)
+      print sNonHangul
+      break
+    case NonHangul
+      sNonHangul += uCur
+    case Hangul
+      if uPrev nil # beginning of file
+        uPrev, uPrevM <- uCur, uCur
+        continue
+      else
+        uPrevMM, uCurM <- mutate2(uPrevM, mutate1(uCur))
+        emit(uPrev, uPrevMM)
+        print sNonHangul
+        sNonHangul, uPrev, uPrevM <- "", uCur, uCurM

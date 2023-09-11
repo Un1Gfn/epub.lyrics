@@ -1,0 +1,18 @@
+#ifndef EX1_H
+#define EX1_H
+
+enum {
+
+  TOKEN_END_OF_FILE = 0,
+
+  TOKEN_NEWPARAGRAPH,
+  TOKEN_NEWLINE,
+
+  TOKEN_BEGIN_LIGHT,
+  TOKEN_END_LIGHT,
+
+  TOKEN_PLACEHOLDER
+
+};
+
+#endif
