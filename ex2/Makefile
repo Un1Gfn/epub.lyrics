@@ -9,24 +9,24 @@ OPT:=/opt/homebrew/opt
 # $(OPT)/flex/bin/bison
 Y:=$(OPT)/bison/bin/yacc
 
-# $(OPT)/flex/bin/flex
+# $(OPT)/flex/bin/flex -v
 L:=$(OPT)/flex/bin/lex
 
-C:=$(OPT)/gcc/bin/gcc-13 -Og -g -B$(OPT)/gcc/bin -B$(OPT)/binutils/bin -L$(OPT)/binutils/lib -L$(OPT)/flex/lib
+C:=$(OPT)/gcc/bin/gcc-13 -std=c11 -Og -g -B$(OPT)/gcc/bin -B$(OPT)/binutils/bin -L$(OPT)/binutils/lib -L$(OPT)/flex/lib
 LDLIBS:=-lfl
 
 .PRECIOUS: y.tab.h
 
-default: run
-
-run: calc.out
-	rlwrap ./$< <<<"print 1+2;a=23;a=a+a;b=7;print a+b-1;exit;"
+default:
+	$(MAKE) clean
+	$(MAKE) calc.out
+	./calc.out <<<"{x/y};{laksjdfksjdf/xnxnxb};"	
 
 calc.out: y.tab.c lex.yy.c
 	$(C) -o $@ $^
 
 lex.yy.c: calc.l y.tab.h
-	$(L) -v $<
+	$(L) $<
 
 y.tab.h y.tab.c: calc.y
 	$(Y) -d $<
