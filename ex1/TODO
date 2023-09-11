@@ -1,13 +1,7 @@
 TODO list
 
 1.
-case NonHangul
-  case NonPronounceable # whitespace, punctuation, symbol
-    sNonHangul += uCur
-  case Pronounceable # etc.
-    emit(uPrev, uPrevM)
-    print sNonHangul
-    sNonHangul, uPrev, uPrevM <- "", None, None
+html ruby
 
 2.
 what does yacc/bison do?

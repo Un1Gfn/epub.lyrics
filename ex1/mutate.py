@@ -1,3 +1,4 @@
+#!/opt/homebrew/bin/python3 -u
 #!/opt/homebrew/bin/python3
 
 # 받침 발음 변화
@@ -5,6 +6,7 @@
 # https://ja.wikipedia.org/wiki/パッチムの発音変化一覧
 
 import sys
+import string
 
 class Jamos:
     pass
@@ -58,14 +60,13 @@ def mutate2(h1, h2):
     return j2h(j1), j2h(j2)
 
 def emit(h, hh):
-    # emit.counter += 1
-    # print(emit.counter, end="")
-    # if emit.counter == ?:
-    #     breakpoint()
-    if h == hh:
-        print(h, end="")
+    if h:
+        if h == hh:
+            print(h, end='')
+        else:
+            print("{%s/%s}" % (h, hh), end='')
     else:
-        print("{%s/%s}" % (h, hh), end="")
+        assert not hh
 
 # emit.counter = 0
 
@@ -73,31 +74,51 @@ def main():
     uPrev = None
     uPrevM = None
     sNonHangul = ""
+    Nonpronounceable = string.punctuation + ' ' + '、，。・”’'
+    def v():
+        print([uPrev, uPrevM, sNonHangul, uCur])
+    N = 0
+    file = open("in.txt", "r")
     while True:
-        uCur = sys.stdin.read(1)
-        if not uCur:
+
+        uCur = file.read(1)
+
+        # print("%d." % N, end='')
+        # N += 1
+        # if N > 110:
+        #     v()
+        #     breakpoint()
+        # pass
+
+        if not uCur: # CaseEOF
             emit(uPrev, uPrevM)
             print(sNonHangul)
             break
-        elif not ( 0*588+0*28+0+44032 <= ord(uCur) <= 18*588+20*28+27+44032 ): 
-            sNonHangul += uCur
-        else:
-            if not uPrev:
-                uPrev, uPrevM = uCur, uCur
-                continue
-            else:
+        elif 0*588+0*28+0+44032 <= ord(uCur) <= 18*588+20*28+27+44032: # CaseHangul
+            if uPrev:
                 uPrevMM, uCurM = mutate2(uPrevM, mutate1(uCur))
                 emit(uPrev, uPrevMM)
-                print(sNonHangul, end="")
-                sNonHangul = ""
-                uPrev, uPrevM = uCur, uCurM
+                print(sNonHangul, end='')
+                sNonHangul ,uPrev, uPrevM = "", uCur, uCurM
+            else: # CaseBOFC at beginning of file or after cut
+                print(sNonHangul, end='')
+                sNonHangul, uPrev, uPrevM = "", uCur, uCur
+        else: # CaseNonhangul
+            if uCur in Nonpronounceable: # CaseNonhangulNonpronounceableNocut
+                sNonHangul += uCur
+                pass
+            else: # CaseNonhangulPronounceableCut
+                sNonHangul += uCur
+                emit(uPrev, uPrevM)
+                print(sNonHangul, end='')
+                sNonHangul, uPrev, uPrevM = "", None, None
+    file.close()
 
 if __name__ == "__main__":
     main()
 
-
-        # if uCur:
-        #     j = h2j(uCur)
-        #     print("[%s|%d.%d.%d]\n" % (uCur, j.i, j.m, j.f), end='')
-        # else:
-        #     break
+# if uCur:
+#     j = h2j(uCur)
+#     print("[%s|%d.%d.%d]\n" % (uCur, j.i, j.m, j.f), end='')
+# else:
+#     break

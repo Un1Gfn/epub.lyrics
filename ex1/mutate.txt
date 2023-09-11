@@ -24,7 +24,13 @@ infinite loop
       print sNonHangul
       break
     case NonHangul
-      sNonHangul += uCur
+      case Nonpronounceable # whitespace, punctuation, symbol
+        sNonHangul += uCur
+      case Pronounceable
+        sNonHangul += uCur
+        emit(uPrev, uPrevM)
+        print sNonHangul
+        sNonHangul, uPrev, uPrevM <- "", None, None
     case Hangul
       if uPrev nil # beginning of file
         uPrev, uPrevM <- uCur, uCur
