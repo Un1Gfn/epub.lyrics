@@ -7,7 +7,6 @@ html ruby
 what does yacc/bison do?
 
 3.
-incorporate scanner into python together
+incorporate flex/bison into python
 https://docs.python.org/3/extending/extending.html
-
-
+https://en.wikipedia.org/wiki/SWIG
