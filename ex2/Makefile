@@ -2,27 +2,36 @@
 # https://youtu.be/__-wUHG2rfM
 # https://github.com/jengelsma/yacc-tutorial
 
-MAKEFLAGS:=-j1
+MAKEFLAGS:=-j1 --no-print-directory
 
 OPT:=/opt/homebrew/opt
 
-# $(OPT)/flex/bin/bison
-Y:=$(OPT)/bison/bin/yacc
+# Y:=$(OPT)/bison/bin/yacc
+Y:=$(OPT)/bison/bin/bison --graph -Wcounterexamples
 
 # $(OPT)/flex/bin/flex -v
 L:=$(OPT)/flex/bin/lex
 
-C:=$(OPT)/gcc/bin/gcc-13 -std=c11 -Og -g -B$(OPT)/gcc/bin -B$(OPT)/binutils/bin -L$(OPT)/binutils/lib -L$(OPT)/flex/lib
+C:=$(OPT)/gcc/bin/gcc-13 -std=gnu11 -Og -g -B$(OPT)/gcc/bin -B$(OPT)/binutils/bin -L$(OPT)/binutils/lib -L$(OPT)/flex/lib
 LDLIBS:=-lfl
 
 .PRECIOUS: y.tab.h
 
+# ./calc.out <<<"{x/y}alyyjf{mx92jdf/MMM}xksdkfj(93j)sdf"
+# "x+a+b+c"
+# "x+{a/b}+c"
+# "x{a/b}c(d)"
+# "x{a/b}c(e{f/g}h)"
 default:
+	@clear
+	# @printf '\\e\[3J'
 	$(MAKE) clean
 	$(MAKE) calc.out
-	./calc.out <<<"{x/y}alksdjf{mx92jdf/MMM}alsdkfj(93j)sdf"
+	dot -Tsvg calc.gv >y.svg
+	@echo
+	echo; printf %s "x+(m+n+o+(p+q))+b" | ./calc.out; echo
 
-calc.out: y.tab.c lex.yy.c
+calc.out: calc.tab.c lex.yy.c
 	$(C) -o $@ $^
 
 lex.yy.c: calc.l y.tab.h
@@ -32,7 +41,7 @@ y.tab.h y.tab.c: calc.y
 	$(Y) -d $<
 
 clean:
-	@grm -fv calc.out y.tab.h y.tab.c lex.yy.c
+	@grm -fv calc.out y.tab.h y.tab.c lex.yy.c y.gv
 	@grm -rfv calc.out.dSYM/
 
 # test:

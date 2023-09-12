@@ -1,14 +1,14 @@
 %{
   #include <string.h>
-  #include "y.tab.h"
+  #include "calc.tab.h"
   void yyerror(char *s);
   int yylex();
 %}
 
 %%
 
-[/{}()]     {return yytext[0];}
-[^/{}()]+   {yylval.u_str=strdup(yytext); return stuffinside;}
+[+/{}()]     {return yytext[0];}
+[^+/{}()]+   {yylval.u_s=strdup(yytext); return plain;}
 
 %%
 
