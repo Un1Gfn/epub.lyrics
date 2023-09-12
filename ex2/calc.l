@@ -7,8 +7,8 @@
 
 %%
 
-[+/{}()]     {return yytext[0];}
-[^+/{}()]+   {yylval.u_s=strdup(yytext); return plain;}
+[/{}()]     {return yytext[0];}
+[^/{}()]+   {yylval.u_s=strdup(yytext); return plain;}
 
 %%
 

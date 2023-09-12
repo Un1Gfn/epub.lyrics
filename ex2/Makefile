@@ -17,11 +17,21 @@ LDLIBS:=-lfl
 
 .PRECIOUS: y.tab.h
 
-# ./calc.out <<<"{x/y}alyyjf{mx92jdf/MMM}xksdkfj(93j)sdf"
 # "x+a+b+c"
 # "x+{a/b}+c"
+# "x+{a/b}+c+(d)"
+# "x+{a/b}+c+(e+{f/g}+h)"
+# "(a+b)+({c/d}+e)+f"
+# "x+(m+n+o+(p+q))+b"
+
+# "x"
+# "x(m(p))b"
+# "x{a/b}c"
 # "x{a/b}c(d)"
 # "x{a/b}c(e{f/g}h)"
+# "(a)({c/d}e)f"
+# "{x/y}alyyjf{mx92jdf/MMM}xksdkfj(93j)sdf"
+
 default:
 	@clear
 	# @printf '\\e\[3J'
@@ -29,20 +39,20 @@ default:
 	$(MAKE) calc.out
 	dot -Tsvg calc.gv >y.svg
 	@echo
-	echo; printf %s "x+(m+n+o+(p+q))+b" | ./calc.out; echo
+	echo; printf %s "x{a/b}c(e{f/g}h)" | ./calc.out; echo
 
 calc.out: calc.tab.c lex.yy.c
 	$(C) -o $@ $^
 
-lex.yy.c: calc.l y.tab.h
+lex.yy.c: calc.l calc.tab.h
 	$(L) $<
 
-y.tab.h y.tab.c: calc.y
+calc.tab.h calc.tab.c: calc.y
 	$(Y) -d $<
 
 clean:
-	@grm -fv calc.out y.tab.h y.tab.c lex.yy.c y.gv
-	@grm -rfv calc.out.dSYM/
+	@grm -fv *.out *.tab.h *.tab.c lex.yy.c *.gv
+	@grm -rfv *.out.dSYM/
 
 # test:
 # 	@grm -fv lex.yy.c

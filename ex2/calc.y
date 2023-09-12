@@ -46,19 +46,18 @@
 /* S span  */
 /* B ruby  */
 
-/*  $1    $2  $3    $4 $5  $6 $7 */
-ex: plain                           {{printf("%3d |  N | ",__LINE__); uint8_t t=random2(); printf(" %3u _ %3u " ,t ,$$ ); printf("_"); printf( " '%s'        " ,$1                     ); $$=t; puts("");};} ;
-  | '('   ex  ')'                   {{printf("%3d |  S | ",__LINE__); uint8_t t=random2(); printf(" %3u _ %3u " ,t ,$$ ); printf("_"); printf( " %3u         "     ,$2                 ); $$=t; puts("");};} ;
-  | '{'   ex  '/'   ex '}'          {{printf("%3d |  B | ",__LINE__); uint8_t t=random2(); printf(" %3u _ %3u " ,t ,$$ ); printf("_"); printf( " %3u %3u     "     ,$2     ,$4         ); $$=t; puts("");};} ;
-  | ex    '+' plain                 {{printf("%3d | +N | ",__LINE__); uint8_t t=random2(); printf(" %3u _ %3u " ,t ,$$ ); printf("_"); printf( " %3u '%s'    " ,$1     ,$3             ); $$=t; puts("");};} ;
-  | ex    '+' '('   ex ')'          {{printf("%3d | +S | ",__LINE__); uint8_t t=random2(); printf(" %3u _ %3u " ,t ,$$ ); printf("_"); printf( " %3u %3u     " ,$1         ,$4         ); $$=t; puts("");};} ;
-  | ex    '+' '{'   ex '/' ex '}'   {{printf("%3d | +B | ",__LINE__); uint8_t t=random2(); printf(" %3u _ %3u " ,t ,$$ ); printf("_"); printf( " %3u %3u %3u " ,$1         ,$4     ,$6 ); $$=t; puts("");};} ;
-/*  $1    $2  $3    $4 $5  $6 $7 */
+/*  $1    $2    $3  $4  $5 $6 */
+ex: plain                        {{printf("%3d | .N | ",__LINE__); uint8_t t=random2(); printf(" %02u      "   ,t     ); printf("_"); printf( " %s             " ,$1                 ); $$=t; puts("");};} ;
+  | '('   ex    ')'              {{printf("%3d | .S | ",__LINE__); uint8_t t=random2(); printf(" %02u      "   ,t     ); printf("_"); printf( " %02u           "     ,$2             ); $$=t; puts("");};} ;
+  | '{'   ex    '/' ex '}'       {{printf("%3d | .B | ",__LINE__); uint8_t t=random2(); printf(" %02u      "   ,t     ); printf("_"); printf( " %02u %02u      "     ,$2     ,$4     ); $$=t; puts("");};} ;
+  | ex    plain                  {{printf("%3d | +N | ",__LINE__); uint8_t t=random2(); printf(" %02u _ %02u " ,t ,$$ ); printf("_"); printf( " %02u %s        " ,$1 ,$2             ); $$=t; puts("");};} ;
+  | ex    '('   ex  ')'          {{printf("%3d | +S | ",__LINE__); uint8_t t=random2(); printf(" %02u _ %02u " ,t ,$$ ); printf("_"); printf( " %02u %02u      " ,$1     ,$3         ); $$=t; puts("");};} ;
+  | ex    '{'   ex  '/' ex '}'   {{printf("%3d | +B | ",__LINE__); uint8_t t=random2(); printf(" %02u _ %02u " ,t ,$$ ); printf("_"); printf( " %02u %02u %02u " ,$1     ,$3     ,$5 ); $$=t; puts("");};} ;
+/*  $1    $2    $3  $4  $5 $6 */
 
 %%
 
 int main (void){
-  /* printf("%3d | ",__LINE__); puts("R.l -> NULL ; R.r -> NULL"); */
   setbuf(stdout, NULL); // disable stdout buffering
   int ret=yyparse();
   return ret;
@@ -70,7 +69,7 @@ void yyerror(char *s){
 
 uint8_t random2(){
   typeof(yylval.u_i) t=0;
-  while(dup[(t=random())]){;}
+  while(dup[(t=random()%16)]){;}
   dup[t] = true;
   return t;
 }
