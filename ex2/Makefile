@@ -11,7 +11,14 @@ MAKEFLAGS:=-j1 --no-print-directory
 
 # https://gcc.gnu.org/onlinedocs/gcc/Environment-Variables.html
 OPT=/opt/homebrew/opt
-C:=clang -std=gnu17 -Og -g -L$(OPT)/flex/lib
+
+# C:=clang -fsanitize=memory -fPIE -pie -fno-omit-frame-pointer -g -O2 -L$(OPT)/flex/lib
+
+C:=clang
+C+=-std=gnu17 -fsanitize=address -fPIE -pie -fno-omit-frame-pointer -O1 -g
+C+=-DNDEBUG
+C+=-L$(OPT)/flex/lib
+
 # LDLIBS:=-lfl
 
 .PRECIOUS: y.tab.h
@@ -32,13 +39,14 @@ C:=clang -std=gnu17 -Og -g -L$(OPT)/flex/lib
 # "{x/y}alyyjf{mx92jdf/MMM}xksdkfj(93j)sdf"
 
 default:
-	@clear
-	# @printf '\\e\[3J'
+	@which clang
+	@# clear
+	@# printf '\\e\[3J'
 	$(MAKE) clean
 	$(MAKE) calc.out
 	dot -Tsvg calc.gv >y.svg
 	@echo
-	echo; ./calc.out <in.txt; echo
+	echo; env ASAN_OPTIONS="detect_leaks=1" ./calc.out <in.txt; echo
 
 calc.out: calc.tab.c lex.yy.c
 	$(C) -o $@ $^ $(LDLIBS)
