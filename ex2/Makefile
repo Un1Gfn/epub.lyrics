@@ -15,7 +15,7 @@ OPT=/opt/homebrew/opt
 # C:=clang -fsanitize=memory -fPIE -pie -fno-omit-frame-pointer -g -O2 -L$(OPT)/flex/lib
 
 C:=clang
-C+=-std=gnu17 -O1 -g
+C+=-x c -std=gnu17 -O1 -g -Wall -Wextra -Wno-unused-function
 # C+=-fsanitize=address -fPIE -pie -fno-omit-frame-pointer
 # C+=-DNDEBUG
 C+=-L$(OPT)/flex/lib

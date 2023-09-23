@@ -18,6 +18,10 @@
   void yyerror(char *s);
   int yylex();
 
+  void f_plain(char**, char*);
+  void f_appendruby(char**, char*, char*, char*);
+  void f_appendspan(char**, char*, char*);
+
   char *root=NULL;
 
 %}
@@ -44,26 +48,11 @@
 /* S span  */
 /* B ruby  */
 
-ex: tk_plain {
-  $$=$1;
-  DEBUGWRAPPER(printf("| .N | %s\n", $$));
-  root=$$;
-};
+ex: tk_plain {f_plain(&($$), $1);};
 
-ex: '(' ex ')' {
-  asprintf(&($$), "<span class=\"x1p8df\">%s</span>", $2);
-  free($2); $2=NULL;
-  DEBUGWRAPPER(printf("| .S | %s\n", $$));
-  root=$$;
-};
+ex: '(' ex ')' {f_appendspan(&($$), strdup(""), $2);};
 
-ex: '{' ex '/' ex '}' {
-  asprintf(&($$), "<ruby>%s<rt>%s</rt></ruby>", $2, $4);
-  free($2); $2=NULL;
-  free($4); $4=NULL;
-  DEBUGWRAPPER(printf("| .B | %s\n", $$));
-  root=$$;
-};
+ex: '{' ex '/' ex '}' {f_appendruby(&($$), strdup(""), $2, $4);};
 
 ex: ex tk_plain {
   asprintf(&($$), "%s%s", $1, $2);
@@ -73,22 +62,9 @@ ex: ex tk_plain {
   root=$$;
 };
 
-ex: ex '(' ex ')' {
-  asprintf(&($$), "%s<span class=\"x1p8df\">%s</span>", $1, $3);
-  free($1); $1=NULL;
-  free($3); $3=NULL;
-  DEBUGWRAPPER(printf("| +S | %s\n", $$));
-  root=$$;
-};
+ex: ex '(' ex ')' {f_appendspan(&($$), $1, $3);};
 
-ex: ex '{' ex '/' ex '}' {
-  asprintf(&($$), "%s<ruby>%s<rt>%s</rt></ruby>", $1, $3, $5);
-  free($1); $1=NULL;
-  free($3); $3=NULL;
-  free($5); $5=NULL;
-  DEBUGWRAPPER(printf("| +B | %s\n", $$));
-  root=$$;
-};
+ex: ex '{' ex '/' ex '}' {f_appendruby(&($$), $1, $3, $5);};
 
 ex: ex tk_par ex {
   asprintf(&($$), "%s</p> <p>%s\n", $1, $3);
@@ -99,6 +75,29 @@ ex: ex tk_par ex {
 };
 
 %%
+
+void f_plain(char **ssp, char *s){
+  *ssp=s;
+  DEBUGWRAPPER(printf("| .N | %s\n", *ssp));
+  root=*ssp;
+}
+
+void f_appendruby(char **ssp, char *s, char *rb, char *rt){
+  asprintf(ssp, "%s<ruby>%s<rt>%s</rt></ruby>", s, rb, rt);
+  free(s);
+  free(rb);
+  free(rt);
+  DEBUGWRAPPER(printf("| +B | %s\n", *ssp));
+  root=*ssp;
+}
+
+void f_appendspan(char** ssp, char* s, char*sa){
+  asprintf(ssp, "%s<span class=\"x1p8df\">%s</span>", s, sa);
+  free(s);
+  free(sa);
+  DEBUGWRAPPER(printf("| +S | %s\n", *ssp));
+  root=*ssp;
+}
 
 int main(){
   setbuf(stdout, NULL); // disable stdout buffering
