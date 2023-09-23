@@ -10,9 +10,10 @@
 %option noyywrap
 
 %%
+
+\n\n        {puts("par detected"); return tk_par;}
 [/{}()]     {return yytext[0];}
-[^/{}()]+   {yylval.u_s=strdup(yytext); return plain;}
-  /* [^/{}()]+   {yylval->u_s=strdup(yytext); return plain;} */
+[^/{}()]+   {yylval.u_s=strdup(yytext); return tk_plain;}
 
 %%
 

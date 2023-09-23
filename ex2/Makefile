@@ -15,8 +15,9 @@ OPT=/opt/homebrew/opt
 # C:=clang -fsanitize=memory -fPIE -pie -fno-omit-frame-pointer -g -O2 -L$(OPT)/flex/lib
 
 C:=clang
-C+=-std=gnu17 -fsanitize=address -fPIE -pie -fno-omit-frame-pointer -O1 -g
-C+=-DNDEBUG
+C+=-std=gnu17 -O1 -g
+# C+=-fsanitize=address -fPIE -pie -fno-omit-frame-pointer
+# C+=-DNDEBUG
 C+=-L$(OPT)/flex/lib
 
 # LDLIBS:=-lfl
@@ -46,7 +47,8 @@ default:
 	$(MAKE) calc.out
 	dot -Tsvg calc.gv >y.svg
 	@echo
-	echo; env ASAN_OPTIONS="detect_leaks=1" ./calc.out <in.txt; echo
+	@# echo; env ASAN_OPTIONS="detect_leaks=1" ./calc.out <in.txt; echo
+	echo; ./calc.out <in.txt; echo
 
 calc.out: calc.tab.c lex.yy.c
 	$(C) -o $@ $^ $(LDLIBS)

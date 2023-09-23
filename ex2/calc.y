@@ -18,17 +18,6 @@
   void yyerror(char *s);
   int yylex();
 
-  // char *fin=NULL;
-
-  // #define M_CAT(pS0,SA) {
-  //   char *t=NULL;
-  //   asprintf(&(t), "%s%s", *(pS0), SA);
-  //   *(pS0)=t;
-  // }
-
-  uint8_t random2();
-  bool dup[UINT8_MAX+1]={};
-
   char *root=NULL;
 
 %}
@@ -36,12 +25,12 @@
 %union {
   uint8_t u_i;
   char *u_s;
-  // char **u_ps;
 }
 
 %start ex
 
-%token <u_s> plain
+%token <u_s> tk_plain
+%token tk_par
 
 %type <u_s> ex
 
@@ -51,11 +40,11 @@
 /* "<ruby>%s<rt>%s</rt></ruby>" */
 /* asprintf(&(...), "...", ...) */
 
-/* N plain */
+/* N tk_plain */
 /* S span  */
 /* B ruby  */
 
-ex: plain {
+ex: tk_plain {
   $$=$1;
   DEBUGWRAPPER(printf("| .N | %s\n", $$));
   root=$$;
@@ -68,7 +57,7 @@ ex: '(' ex ')' {
   root=$$;
 };
 
-ex: '{'   ex    '/' ex '}' {
+ex: '{' ex '/' ex '}' {
   asprintf(&($$), "<ruby>%s<rt>%s</rt></ruby>", $2, $4);
   free($2); $2=NULL;
   free($4); $4=NULL;
@@ -76,7 +65,7 @@ ex: '{'   ex    '/' ex '}' {
   root=$$;
 };
 
-ex: ex plain {
+ex: ex tk_plain {
   asprintf(&($$), "%s%s", $1, $2);
   free($1); $1=NULL;
   free($2); $2=NULL;
@@ -101,9 +90,17 @@ ex: ex '{' ex '/' ex '}' {
   root=$$;
 };
 
+ex: ex tk_par ex {
+  asprintf(&($$), "%s</p> <p>%s\n", $1, $3);
+  free($1); $1=NULL;
+  free($3); $3=NULL;
+  DEBUGWRAPPER(printf("| +P | %s\n", $$));
+  root=$$;
+};
+
 %%
 
-int main (void){
+int main(){
   setbuf(stdout, NULL); // disable stdout buffering
   int r=yyparse();
   puts((char*)NULL);
@@ -115,11 +112,4 @@ int main (void){
 
 void yyerror(char *s){
   fprintf(stderr, "%s\n", s);
-}
-
-uint8_t random2(){
-  typeof(yylval.u_i) t=0;
-  while(dup[(t=random()%16)]){;}
-  dup[t] = true;
-  return t;
 }
