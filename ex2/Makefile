@@ -2,15 +2,17 @@
 # https://youtu.be/__-wUHG2rfM
 # https://github.com/jengelsma/yacc-tutorial
 
+ifeq ($(shell uname -s),Darwin)
+  $(info loading homebrew compat $$PATH ...)
+  include /usr/local/share/make/compat.mk
+endif
+
 MAKEFLAGS:=-j1 --no-print-directory
 
-OPT:=/opt/homebrew/opt
-
-Y:=$(OPT)/bison/bin/bison --graph -Wcounterexamples
-L:=$(OPT)/flex/bin/flex
-
-C:=$(OPT)/gcc/bin/gcc-13 -std=gnu11 -Og -g -B$(OPT)/gcc/bin -B$(OPT)/binutils/bin -L$(OPT)/binutils/lib -L$(OPT)/flex/lib
-LDLIBS:=-lfl
+# https://gcc.gnu.org/onlinedocs/gcc/Environment-Variables.html
+OPT=/opt/homebrew/opt
+C:=clang -std=gnu17 -Og -g -L$(OPT)/flex/lib
+# LDLIBS:=-lfl
 
 .PRECIOUS: y.tab.h
 
@@ -39,13 +41,13 @@ default:
 	echo; ./calc.out <in.txt; echo
 
 calc.out: calc.tab.c lex.yy.c
-	$(C) -o $@ $^
+	$(C) -o $@ $^ $(LDLIBS)
 
 lex.yy.c: calc.l calc.tab.h
-	$(L) $<
+	flex $<
 
 calc.tab.h calc.tab.c: calc.y
-	$(Y) -d $<
+	bison --graph -Wcounterexamples -d $<
 
 clean:
 	@grm -fv *.out *.tab.h *.tab.c lex.yy.c *.gv
@@ -53,12 +55,28 @@ clean:
 
 # test:
 # 	@grm -fv lex.yy.c
-# 	$(L) -v scanner.l
+# 	flex -v scanner.l
 # 	$(C) lex.yy.c scanner.c $(LDLIBS)
 # 	gsed -z 's/^\n*\|\n*$$//g' in.txt | ./a.out
 
-# info:
-# 	$(C) -print-prog-name=ldx
-
-# clean:
-# 	@grm -fv a.out lex.yy.c
+test:
+	nm -a /opt/homebrew/opt/flex/lib/libfl.2.dylib
+	@echo
+	clang -print-search-dirs
+	@echo
+	gcc-13 -print-search-dirs
+	@echo
+	echo | clang -E -Wp,-v -
+	@echo
+	echo | gcc-13 -E -Wp,-v -
+	@echo
+	gcc-13 -print-prog-name=ldx -print-prog-name=ranlib
+	ranlib -V
+	type nm
+	type cp
+	type clang
+	type bison
+	type flex
+	type nm
+	type objcopy
+	type ranlib
