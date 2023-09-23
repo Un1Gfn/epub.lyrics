@@ -5,10 +5,13 @@
   int yylex();
 %}
 
-%%
+/* %option bison-bridge */
+/* %option verbose */
 
+%%
 [/{}()]     {return yytext[0];}
 [^/{}()]+   {yylval.u_s=strdup(yytext); return plain;}
+  /* [^/{}()]+   {yylval->u_s=strdup(yytext); return plain;} */
 
 %%
 

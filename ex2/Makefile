@@ -6,11 +6,8 @@ MAKEFLAGS:=-j1 --no-print-directory
 
 OPT:=/opt/homebrew/opt
 
-# Y:=$(OPT)/bison/bin/yacc
 Y:=$(OPT)/bison/bin/bison --graph -Wcounterexamples
-
-# $(OPT)/flex/bin/flex -v
-L:=$(OPT)/flex/bin/lex
+L:=$(OPT)/flex/bin/flex
 
 C:=$(OPT)/gcc/bin/gcc-13 -std=gnu11 -Og -g -B$(OPT)/gcc/bin -B$(OPT)/binutils/bin -L$(OPT)/binutils/lib -L$(OPT)/flex/lib
 LDLIBS:=-lfl
@@ -39,7 +36,7 @@ default:
 	$(MAKE) calc.out
 	dot -Tsvg calc.gv >y.svg
 	@echo
-	echo; printf %s "x{a/b}c(e{f/g}h)" | ./calc.out; echo
+	echo; ./calc.out <in.txt; echo
 
 calc.out: calc.tab.c lex.yy.c
 	$(C) -o $@ $^

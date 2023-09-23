@@ -27,7 +27,7 @@
 %union {
   uint8_t u_i;
   char *u_s;
-  char **u_ps;
+  // char **u_ps;
 }
 
 %start ex
@@ -64,7 +64,7 @@ int main (void){
 }
 
 void yyerror(char *s){
-  fprintf (stderr, "%s\n", s);
+  fprintf(stderr, "%s\n", s);
 }
 
 uint8_t random2(){
