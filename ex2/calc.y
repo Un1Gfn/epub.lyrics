@@ -56,37 +56,47 @@
 /* B ruby  */
 
 ex: plain {
-  $$=strdup($1);
+  $$=$1;
   DEBUGWRAPPER(printf("| .N | %s\n", $$));
   root=$$;
 };
 
 ex: '(' ex ')' {
   asprintf(&($$), "<span class=\"x1p8df\">%s</span>", $2);
+  free($2); $2=NULL;
   DEBUGWRAPPER(printf("| .S | %s\n", $$));
   root=$$;
 };
 
 ex: '{'   ex    '/' ex '}' {
   asprintf(&($$), "<ruby>%s<rt>%s</rt></ruby>", $2, $4);
+  free($2); $2=NULL;
+  free($4); $4=NULL;
   DEBUGWRAPPER(printf("| .B | %s\n", $$));
   root=$$;
 };
 
 ex: ex plain {
   asprintf(&($$), "%s%s", $1, $2);
+  free($1); $1=NULL;
+  free($2); $2=NULL;
   DEBUGWRAPPER(printf("| +N | %s\n", $$));
   root=$$;
 };
 
 ex: ex '(' ex ')' {
   asprintf(&($$), "%s<span class=\"x1p8df\">%s</span>", $1, $3);
+  free($1); $1=NULL;
+  free($3); $3=NULL;
   DEBUGWRAPPER(printf("| +S | %s\n", $$));
   root=$$;
 };
 
 ex: ex '{' ex '/' ex '}' {
   asprintf(&($$), "%s<ruby>%s<rt>%s</rt></ruby>", $1, $3, $5);
+  free($1); $1=NULL;
+  free($3); $3=NULL;
+  free($5); $5=NULL;
   DEBUGWRAPPER(printf("| +B | %s\n", $$));
   root=$$;
 };
@@ -98,6 +108,7 @@ int main (void){
   int r=yyparse();
   puts((char*)NULL);
   puts(root);
+  free(root); root=NULL;
   // char *s=strdup("asdlfjk");
   return r;
 }
