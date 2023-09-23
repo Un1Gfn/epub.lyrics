@@ -21,6 +21,8 @@
   void f_plain(char**, char*);
   void f_appendruby(char**, char*, char*, char*);
   void f_appendspan(char**, char*, char*);
+  void f_appendline(char**, char*, char*);
+  void f_appendpar(char**, char*, char*){}
 
   char *root=NULL;
 
@@ -31,12 +33,15 @@
   char *u_s;
 }
 
-%start ex
+%start pars
 
 %token <u_s> tk_plain
-%token tk_par
 
-%type <u_s> ex
+%token tk_parsep
+
+%type <u_s> exps
+%type <u_s> lines
+%type <u_s> pars
 
 %%
 
@@ -48,13 +53,15 @@
 /* S span  */
 /* B ruby  */
 
-ex: tk_plain {f_plain(&($$), $1);};
+exp: tk_plain {f_plain(&($$), $1);};
 
-ex: '(' ex ')' {f_appendspan(&($$), strdup(""), $2);};
+exps: tk_plain {f_plain(&($$), $1);};
 
-ex: '{' ex '/' ex '}' {f_appendruby(&($$), strdup(""), $2, $4);};
+exps: '(' exps ')' {f_appendspan(&($$), strdup(""), $2);};
 
-ex: ex tk_plain {
+exps: '{' exps '/' exps '}' {f_appendruby(&($$), strdup(""), $2, $4);};
+
+exps: exps tk_plain {
   asprintf(&($$), "%s%s", $1, $2);
   free($1); $1=NULL;
   free($2); $2=NULL;
@@ -62,17 +69,17 @@ ex: ex tk_plain {
   root=$$;
 };
 
-ex: ex '(' ex ')' {f_appendspan(&($$), $1, $3);};
+exps: exps '(' exps ')' {f_appendspan(&($$), $1, $3);};
 
-ex: ex '{' ex '/' ex '}' {f_appendruby(&($$), $1, $3, $5);};
+exps: exps '{' exps '/' exps '}' {f_appendruby(&($$), $1, $3, $5);};
 
-ex: ex tk_par ex {
-  asprintf(&($$), "%s</p> <p>%s\n", $1, $3);
-  free($1); $1=NULL;
-  free($3); $3=NULL;
-  DEBUGWRAPPER(printf("| +P | %s\n", $$));
-  root=$$;
-};
+lines: exps '\n' {f_appendline(&($$), $1, NULL);};
+
+lines: lines exps '\n' {f_appendline(&($$), $1, $2);};
+
+pars: lines tk_parsep {f_appendpar(&($$), $1, NULL);};
+
+pars: pars lines tk_parsep {f_appendpar(&($$), $1, $2);};
 
 %%
 
@@ -99,9 +106,25 @@ void f_appendspan(char** ssp, char* s, char*sa){
   root=*ssp;
 }
 
+void f_appendline(char **ssp, char* s, char*sa){
+  if(sa){
+    asprintf(ssp, "%s\t%s<br/>\n", s, sa);
+    free(s);
+    free(sa);
+    DEBUGWRAPPER(printf("| +L | %s\n", *ssp));
+  }else{
+    asprintf(ssp, "\t%s<br/>\n", s);
+    free(s);
+    DEBUGWRAPPER(printf("| .L | %s\n", *ssp));
+  }
+  root=*ssp;
+}
+
 int main(){
   setbuf(stdout, NULL); // disable stdout buffering
   int r=yyparse();
+  puts("");
+  puts("");
   puts((char*)NULL);
   puts(root);
   free(root); root=NULL;
