@@ -28,14 +28,15 @@ default:
 	@# clear
 	@# printf '\\e\[3J'
 	$(MAKE) clean
-	$(MAKE) calc.out
-	dot -Tsvg calc.gv >y.svg
-	@echo
+	$(MAKE) calc.dylib
+	python3 ./main.py
+	@# dot -Tsvg calc.gv >y.svg
+	@# echo
 	@# echo; env ASAN_OPTIONS="detect_leaks=1" ./calc.out <in.txt; echo
-	echo; ./calc.out; echo
+	@# echo; ./calc.out; echo
 
-calc.out: main.c calc.tab.c lex.yy.c f.c f.h
-	$(C) -o $@ $^ $(LDLIBS)
+calc.dylib: calc.c calc.tab.c lex.yy.c f.c f.h
+	$(C) -dynamiclib -o $@ $^ $(LDLIBS)
 
 lex.yy.c: calc.l calc.tab.h
 	flex $<
@@ -44,8 +45,8 @@ calc.tab.h calc.tab.c: calc.y
 	bison --graph -Wcounterexamples -d $<
 
 clean:
-	@grm -fv *.out *.tab.h *.tab.c lex.yy.c *.gv
-	@grm -rfv *.out.dSYM/
+	@grm -fv *.out *.dylib *.tab.h *.tab.c lex.yy.c *.gv
+	@grm -rfv *.out.dSYM/ *.dylib.dSYM/
 
 # test:
 # 	@grm -fv lex.yy.c

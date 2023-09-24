@@ -4,7 +4,9 @@
 /lex.yy.c
 
 /*.out
+/*.dylib
 /*.out.dSYM
+/*.dylib.dSYM
 
 /*.gv
 /*.svg
