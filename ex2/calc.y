@@ -1,13 +1,9 @@
 %{
 
-  #include <assert.h>
-  #include <ctype.h>
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
+  #include <stddef.h>
   #include <stdint.h>
-  #include <time.h>
-  #include <stdbool.h>
+  #include <stdio.h>
+  #include <string.h> // strdup
   #include "f.h"
 
   void yyerror(char *s);
@@ -20,15 +16,14 @@
   char *u_s;
 }
 
-%start pars
-
 %token <u_s> tk_plain
-
 %token tk_parsep
 
 %type <u_s> exps
 %type <u_s> lines
 %type <u_s> pars
+
+%start pars
 
 %%
 
@@ -56,18 +51,6 @@ pars: lines tk_parsep {$$=f_appendpar(NULL, $1);};
 pars: pars lines tk_parsep {$$=f_appendpar($1, $2);};
 
 %%
-
-int main(){
-  setbuf(stdout, NULL); // disable stdout buffering
-  int r=yyparse();
-  puts("");
-  puts("");
-  puts((char*)NULL);
-  puts(root);
-  free(root); root=NULL;
-  // char *s=strdup("asdlfjk");
-  return r;
-}
 
 void yyerror(char *s){
   fprintf(stderr, "%s\n", s);

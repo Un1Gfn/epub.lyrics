@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define NDEBUG 1
 #include "f.h"
 
 char *root=NULL;
