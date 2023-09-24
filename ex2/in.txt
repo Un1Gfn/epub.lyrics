@@ -1,8 +1,8 @@
 xxx
-x{먹/머}{어/거}
+x({먹/머}a{어/거})
 c(hahaha){kkkkk/s}
 
 xxx
-x{먹/머}{어/거}
+x({먹/머}b{어/거})
 c(hahaha){kkkkk/s}
 

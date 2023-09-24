@@ -17,27 +17,12 @@ OPT=/opt/homebrew/opt
 C:=clang
 C+=-x c -std=gnu17 -O1 -g -Wall -Wextra -Wno-unused-function
 # C+=-fsanitize=address -fPIE -pie -fno-omit-frame-pointer
-# C+=-DNDEBUG
+C+=-DNDEBUG
 C+=-L$(OPT)/flex/lib
 
 # LDLIBS:=-lfl
 
 .PRECIOUS: y.tab.h
-
-# "x+a+b+c"
-# "x+{a/b}+c"
-# "x+{a/b}+c+(d)"
-# "x+{a/b}+c+(e+{f/g}+h)"
-# "(a+b)+({c/d}+e)+f"
-# "x+(m+n+o+(p+q))+b"
-
-# "x"
-# "x(m(p))b"
-# "x{a/b}c"
-# "x{a/b}c(d)"
-# "x{a/b}c(e{f/g}h)"
-# "(a)({c/d}e)f"
-# "{x/y}alyyjf{mx92jdf/MMM}xksdkfj(93j)sdf"
 
 default:
 	@which clang
@@ -50,7 +35,7 @@ default:
 	@# echo; env ASAN_OPTIONS="detect_leaks=1" ./calc.out <in.txt; echo
 	echo; ./calc.out <in.txt; echo
 
-calc.out: calc.tab.c lex.yy.c
+calc.out: calc.tab.c lex.yy.c f.c f.h
 	$(C) -o $@ $^ $(LDLIBS)
 
 lex.yy.c: calc.l calc.tab.h
@@ -90,3 +75,18 @@ test:
 	type nm
 	type objcopy
 	type ranlib
+
+# "x+a+b+c"
+# "x+{a/b}+c"
+# "x+{a/b}+c+(d)"
+# "x+{a/b}+c+(e+{f/g}+h)"
+# "(a+b)+({c/d}+e)+f"
+# "x+(m+n+o+(p+q))+b"
+
+# "x"
+# "x(m(p))b"
+# "x{a/b}c"
+# "x{a/b}c(d)"
+# "x{a/b}c(e{f/g}h)"
+# "(a)({c/d}e)f"
+# "{x/y}alyyjf{mx92jdf/MMM}xksdkfj(93j)sdf"
