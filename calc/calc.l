@@ -11,6 +11,8 @@
 
 %%
 
+  // G1WIX9CT calc.l
+  // G1WIX9CT mutate.py
 ^%.*$        {yylval.u_s=strdup(yytext+1); return tk_html;}
 ^\n          {return tk_parsep;}
 \n           {return yytext[0];}

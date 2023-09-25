@@ -73,7 +73,7 @@ def mutate(filename):
     uPrev = ""
     uPrevM = ""
     sNonHangul = ""
-    Nonpronounceable = string.punctuation + ' ' + '、，。・”’'
+    Nonpronounceable = string.punctuation.replace("%","") + ' ' + '、，。・”’'
 
     # N = 0
     # def v():
@@ -110,6 +110,14 @@ def mutate(filename):
                 pass
             else: # CaseNonhangulPronounceableCut
                 sNonHangul += uCur
+                # G1WIX9CT calc.l
+                # G1WIX9CT mutate.py
+                if uCur == "%":
+                    while True:
+                        uCur = file.read(1)
+                        sNonHangul += uCur
+                        if uCur == "\n":
+                            break
                 r += emit(uPrev, uPrevM)
                 r += sNonHangul
                 sNonHangul, uPrev, uPrevM = "", "", ""
