@@ -12,8 +12,34 @@ import os
 import atexit
 import shutil
 import zipfile
+import ctypes
+import mutate
 
-HTML = """
+# gshuf -n 1 -i 2000000000-2999999999
+D = {
+    2553463205: "뱀파이어",
+}
+
+# B="""\
+# x
+# x(m(p))b
+# x{a/b}c
+# x{a/b}c(d)
+# x{a/b}c(e{f/g}h)
+# (a)({c/d}e)f
+# {x/y}alyyjf{mx92jdf/MMM}xksdkfj(93j)sdf
+
+# xxx
+# x({먹/머}a{어/거})
+# c(hahaha){kkkkk/s}
+
+# xxx
+# x({먹/머}b{어/거})
+# c(hahaha){kkkkk/s}
+
+# """
+
+HTML = """\
 <!DOCTYPE html>
 <html lang=ko-KR>
     <head>
@@ -26,9 +52,7 @@ HTML = """
             }
         </style>
     </head>
-    <body>
-        <p>안녕하세요!</p>
-    </body>
+    <body>\n%s    </body>
 </html>
 """
 
@@ -44,8 +68,13 @@ class ClashMain:
     start_response = None
     environ = None
 
+    calc = None
+
     def __init__(self):
         self.adapt_os()
+        self.calc = ctypes.CDLL("calc/calc.dylib").calc
+        self.calc.restype = ctypes.c_char_p
+        # print(f"@{self.calc(B.encode()).decode()}@")
         print(f"http://{self.address}:{self.port}/")
         wsgiref.simple_server.make_server(self.address, self.port, self.simple_app).serve_forever()
 
@@ -55,13 +84,13 @@ class ClashMain:
             assert u.sysname == "Linux"
             ClashMain.address = '127.0.0.1'
             ClashMain.port = 8080
-            # ClashPersistent.d = pathlib.Path("/CLASH") 
+            # ClashPersistent.d = pathlib.Path("/CLASH")
             # ClashProcess.b = "/usr/bin/clash"
         else:
             assert u.sysname == 'Darwin'
             ClashMain.address = '127.0.0.1'
             ClashMain.port = 8080
-            # ClashPersistent.d = pathlib.Path("/tmp/CLASH") 
+            # ClashPersistent.d = pathlib.Path("/tmp/CLASH")
             # ClashProcess.b = "/opt/homebrew/bin/clash"
         print("adapted to os")
         print(u)
@@ -71,13 +100,25 @@ class ClashMain:
         # pprint.PrettyPrinter(indent=4).pprint(environ)
         self.environ = environ
         self.start_response = start_response
-        match self.environ['PATH_INFO']:
-            # case "/somepath":
-            #     assert "GET" == self.environ['REQUEST_METHOD']
-            #     f()
-            case _:
-                return self.gen_page("text/html", HTML)
-        print(ClashLog.l)
+
+        for k, v in D.items():
+            if f"/{k}" == self.environ['PATH_INFO']:
+                assert "GET" == self.environ['REQUEST_METHOD']
+                f = f"{k}/kr.txt"
+                # with open(f, "r") as ff:
+                #     print(f"@{ff.read()}@@")
+                m = mutate.mutate(f)
+                print(f"@{m}@@")
+                b = self.calc(m.encode()).decode()
+                # print(f"@{b}@@")
+                return self.gen_page("text/html", HTML % b)
+
+            #     case _:
+            #         for i
+            #         mutate.mutate(D[0][0])
+            #         return self.gen_page("text/html", HTML % self.calc(B.encode()).decode())
+            # print(ClashLog.l)
+
         return self.gen_page("text/plain; charset=utf-8", ClashLog.l)
 
     def gen_page(self, t, s):

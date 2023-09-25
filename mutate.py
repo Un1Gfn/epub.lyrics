@@ -60,25 +60,26 @@ def mutate2(h1, h2):
     return j2h(j1), j2h(j2)
 
 def emit(h, hh):
-    if h:
-        if h == hh:
-            print(h, end='')
-        else:
-            print("{%s/%s}" % (h, hh), end='')
+    if h == hh:
+        return h
     else:
-        assert not hh
+        return "{%s/%s}" % (h, hh)
 
 # emit.counter = 0
 
-def main():
-    uPrev = None
-    uPrevM = None
+def mutate(filename):
+
+    r = ""
+    uPrev = ""
+    uPrevM = ""
     sNonHangul = ""
     Nonpronounceable = string.punctuation + ' ' + '、，。・”’'
-    def v():
-        print([uPrev, uPrevM, sNonHangul, uCur])
-    N = 0
-    file = open("in.txt", "r")
+
+    # N = 0
+    # def v():
+    #     print([uPrev, uPrevM, sNonHangul, uCur])
+
+    file = open(filename, "r")
     while True:
 
         uCur = file.read(1)
@@ -91,17 +92,17 @@ def main():
         # pass
 
         if not uCur: # CaseEOF
-            emit(uPrev, uPrevM)
-            print(sNonHangul)
+            r += emit(uPrev, uPrevM)
+            r += sNonHangul
             break
         elif 0*588+0*28+0+44032 <= ord(uCur) <= 18*588+20*28+27+44032: # CaseHangul
             if uPrev:
                 uPrevMM, uCurM = mutate2(uPrevM, mutate1(uCur))
-                emit(uPrev, uPrevMM)
-                print(sNonHangul, end='')
+                r += emit(uPrev, uPrevMM)
+                r += sNonHangul
                 sNonHangul ,uPrev, uPrevM = "", uCur, uCurM
             else: # CaseBOFC at beginning of file or after cut
-                print(sNonHangul, end='')
+                r += sNonHangul
                 sNonHangul, uPrev, uPrevM = "", uCur, uCur
         else: # CaseNonhangul
             if uCur in Nonpronounceable: # CaseNonhangulNonpronounceableNocut
@@ -109,13 +110,12 @@ def main():
                 pass
             else: # CaseNonhangulPronounceableCut
                 sNonHangul += uCur
-                emit(uPrev, uPrevM)
-                print(sNonHangul, end='')
-                sNonHangul, uPrev, uPrevM = "", None, None
-    file.close()
+                r += emit(uPrev, uPrevM)
+                r += sNonHangul
+                sNonHangul, uPrev, uPrevM = "", "", ""
 
-if __name__ == "__main__":
-    main()
+    file.close()
+    return r
 
 # if uCur:
 #     j = h2j(uCur)

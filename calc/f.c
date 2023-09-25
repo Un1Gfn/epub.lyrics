@@ -5,6 +5,8 @@
 #define NDEBUG 1
 #include "f.h"
 
+#define INDENT "    "
+
 char *root=NULL;
 
 char *f_appendplain(char *s, char *sa){
@@ -42,7 +44,7 @@ char *f_appendruby(char *s, char *rb, char *rt){
 
 char *f_appendline(char* s, char*sa){
   char *r=NULL;
-  asprintf(&r, "%s\t%s<br/>\n", s?s:"", sa);
+  asprintf(&r, "%s" INDENT INDENT INDENT "%s<br/>\n", s?s:"", sa);
   free(s);
   free(sa);
   DEBUGWRAPPER(printf("| +L | %s\n", r));
@@ -52,7 +54,7 @@ char *f_appendline(char* s, char*sa){
 
 char *f_appendpar(char* s, char*sa){
   char *r=NULL;
-  asprintf(&r, "%s<p>\n%s</p>\n", s?s:"", sa);
+  asprintf(&r, "%s" INDENT INDENT "<p>\n%s" INDENT INDENT "</p>\n", s?s:"", sa);
   free(s);
   free(sa);
   DEBUGWRAPPER(printf("| +G | %s\n", r));

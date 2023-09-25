@@ -24,16 +24,15 @@ C+=-L$(OPT)/flex/lib
 .PRECIOUS: y.tab.h
 
 default:
-	@which clang
-	@# clear
-	@# printf '\\e\[3J'
 	$(MAKE) clean
 	$(MAKE) calc.dylib
-	python3 ./main.py
-	@# dot -Tsvg calc.gv >y.svg
-	@# echo
-	@# echo; env ASAN_OPTIONS="detect_leaks=1" ./calc.out <in.txt; echo
-	@# echo; ./calc.out; echo
+# 	@which clang
+# 	@# clear
+# 	@# printf '\\e\[3J'
+# 	@# dot -Tsvg calc.gv >y.svg
+# 	@# echo
+# 	@# echo; env ASAN_OPTIONS="detect_leaks=1" ./calc.out <in.txt; echo
+# 	@# echo; ./calc.out; echo
 
 calc.dylib: calc.c calc.tab.c lex.yy.c f.c f.h
 	$(C) -dynamiclib -o $@ $^ $(LDLIBS)
@@ -42,10 +41,11 @@ lex.yy.c: calc.l calc.tab.h
 	flex $<
 
 calc.tab.h calc.tab.c: calc.y
-	bison --graph -Wcounterexamples -d $<
+	bison -Wcounterexamples -d $<
+	@# bison --graph -Wcounterexamples -d $<
 
 clean:
-	@grm -fv *.out *.dylib *.tab.h *.tab.c lex.yy.c *.gv
+	@grm -fv *.out *.dylib *.tab.h *.tab.c lex.yy.c *.gv *.svg
 	@grm -rfv *.out.dSYM/ *.dylib.dSYM/
 
 # test:

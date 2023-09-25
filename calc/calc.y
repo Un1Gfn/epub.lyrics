@@ -17,6 +17,7 @@
 }
 
 %token <u_s> tk_plain
+%token <u_s> tk_html
 %token tk_parsep
 
 %type <u_s> exps
@@ -35,19 +36,22 @@
 /* S span  */
 /* B ruby  */
 
-exps: tk_plain {$$=f_appendplain($1, strdup(""));};
+exps:      tk_plain {$$=f_appendplain($1, strdup(""));};
 exps: exps tk_plain {$$=f_appendplain($1, $2);};
 
-exps: '(' exps ')' {$$=f_appendspan(NULL, $2);};
+exps:      '(' exps ')' {$$=f_appendspan(NULL, $2);};
 exps: exps '(' exps ')' {$$=f_appendspan($1, $3);};
 
-exps: '{' exps '/' exps '}' {$$=f_appendruby(NULL, $2, $4);};
+exps:      '{' exps '/' exps '}' {$$=f_appendruby(NULL, $2, $4);};
 exps: exps '{' exps '/' exps '}' {$$=f_appendruby($1, $3, $5);};
 
-lines: exps '\n' {$$=f_appendline(NULL, $1);};
+lines:       exps '\n' {$$=f_appendline(NULL, $1);};
 lines: lines exps '\n' {$$=f_appendline($1, $2);};
 
-pars: lines tk_parsep {$$=f_appendpar(NULL, $1);};
+lines:       tk_html '\n' {$$=f_appendline(NULL, $1);};
+lines: lines tk_html '\n' {$$=f_appendline($1, $2);};
+
+pars:      lines tk_parsep {$$=f_appendpar(NULL, $1);};
 pars: pars lines tk_parsep {$$=f_appendpar($1, $2);};
 
 %%
