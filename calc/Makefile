@@ -26,6 +26,7 @@ C+=-L$(OPT)/flex/lib
 default:
 	$(MAKE) clean
 	$(MAKE) calc.dylib
+	$(MAKE) calc.out
 # 	@which clang
 # 	@# clear
 # 	@# printf '\\e\[3J'
@@ -33,6 +34,9 @@ default:
 # 	@# echo
 # 	@# echo; env ASAN_OPTIONS="detect_leaks=1" ./calc.out <in.txt; echo
 # 	@# echo; ./calc.out; echo
+
+calc.out: main.c calc.tab.c lex.yy.c f.c f.h
+	$(C) -o $@ $^ $(LDLIBS)
 
 calc.dylib: calc.c calc.tab.c lex.yy.c f.c f.h
 	$(C) -dynamiclib -o $@ $^ $(LDLIBS)

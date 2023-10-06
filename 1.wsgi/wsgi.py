@@ -1,43 +1,15 @@
 #!/usr/bin/python3
 
 import wsgiref.simple_server
-import multipart
-import pathlib
-# import pprint
-import io
-import hashlib
-import ruamel.yaml
-import subprocess
 import os
-import atexit
-import shutil
-import zipfile
 import ctypes
-import mutate
+# import mutate
+import base64
 
 # gshuf -n 1 -i 2000000000-2999999999
 D = {
     2553463205: "뱀파이어",
 }
-
-# B="""\
-# x
-# x(m(p))b
-# x{a/b}c
-# x{a/b}c(d)
-# x{a/b}c(e{f/g}h)
-# (a)({c/d}e)f
-# {x/y}alyyjf{mx92jdf/MMM}xksdkfj(93j)sdf
-
-# xxx
-# x({먹/머}a{어/거})
-# c(hahaha){kkkkk/s}
-
-# xxx
-# x({먹/머}b{어/거})
-# c(hahaha){kkkkk/s}
-
-# """
 
 HTML = """\
 <!DOCTYPE html>
@@ -50,15 +22,15 @@ HTML = """\
             * {
                 font-family: sans-serif;
             }
+            audio {
+                width: 100%%;
+            }
         </style>
     </head>
-    <body>\n%s    </body>
+    <body>
+        <audio controls preload src="%s" type="audio/m4a"></audio>\n%s    </body>
 </html>
 """
-
-class ClashLog:
-
-    l = str()
 
 class ClashMain:
 
@@ -96,37 +68,39 @@ class ClashMain:
         print(u)
 
     def simple_app(self, environ, start_response):
-        ClashLog.l = str()
         # pprint.PrettyPrinter(indent=4).pprint(environ)
         self.environ = environ
         self.start_response = start_response
 
         for k, v in D.items():
+
             if f"/{k}" == self.environ['PATH_INFO']:
                 assert "GET" == self.environ['REQUEST_METHOD']
-                f = f"{k}/kr.txt"
-                # with open(f, "r") as ff:
-                #     print(f"@{ff.read()}@@")
-                m = mutate.mutate(f)
+                f = f"{k}/lrc.txt"
+                # m = mutate.mutate(f)
+                with open(f, "r") as ff:
+                    m = ff.read()
                 print(f"@{m}@@")
-                b = self.calc(m.encode()).decode()
-                # print(f"@{b}@@")
-                return self.gen_page("text/html", HTML % b)
+                s_lrc = self.calc(m.encode()).decode()
+                # print(f"@{s_lrc}@@")
+                # with open(f"{k}/track.m4a", "rb") as ff:
+                #     s_b64 = base64.b64encode(ff.read()).decode()
+                # print(s_b64)
+                return self.gen_page("text/html", (HTML % (f"/{k}/track.m4a", s_lrc)).encode())
 
-            #     case _:
-            #         for i
-            #         mutate.mutate(D[0][0])
-            #         return self.gen_page("text/html", HTML % self.calc(B.encode()).decode())
-            # print(ClashLog.l)
+            if f"/{k}/track.m4a" == self.environ['PATH_INFO']:
+                with open(f"{k}/track.m4a", "rb") as ff:
+                    b = ff.read()
+                return self.gen_page("audio/m4a", b)
 
-        return self.gen_page("text/plain; charset=utf-8", ClashLog.l)
+        return self.gen_page("text/plain; charset=utf-8", "t2cp7u".encode())
 
-    def gen_page(self, t, s):
+    def gen_page(self, t, bs):
         self.start_response('200 OK', [
             ('Content-Type', t),
-            ('Content-Length', str(len(s.encode()))),
+            ('Content-Length', str(len(bs))),
         ])
-        return [s.encode()]
+        return [bs]
 
 if __name__ == "__main__":
     ClashMain()

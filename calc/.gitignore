@@ -1,12 +1,12 @@
-/*.tab.h
-/*.tab.c
+*.tab.h
+*.tab.c
 
-/lex.yy.c
+lex.yy.c
 
-/*.out
-/*.dylib
-/*.out.dSYM
-/*.dylib.dSYM
+*.out
+*.dylib
+*.out.dSYM
+*.dylib.dSYM
 
-/*.gv
-/*.svg
+*.gv
+*.svg

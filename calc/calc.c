@@ -6,7 +6,6 @@
 #include "f.h"
 
 extern FILE *yyin;
-int yyparse();
 
 char *calc(char *buf){
 
@@ -17,7 +16,7 @@ char *calc(char *buf){
   // return 0;
   assert((yyin=fmemopen(buf, strlen(buf), "r")));
 
-  int r=yyparse();
+  yyparse();
 
   // puts("");
   // puts("");

@@ -15,4 +15,6 @@ char *f_appendruby(char*, char*, char*);
 char *f_appendline(char*, char*);
 char *f_appendpar(char*, char*);
 
+int yyparse();
+
 #endif
