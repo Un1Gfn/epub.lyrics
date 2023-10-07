@@ -6,19 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
     <title>@TITLE@</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
     <p>
-      <button onClick="fs_dec()">font-=1px</button> <button onClick="lh_dec()">lineHeight-=10%*lh0</button><br/>
-      <button onClick="fs_inc()">font+=1px</button> <button onClick="lh_inc()">lineHeight+=10%*lh0</button><br/>
+      <button onClick="show()">show</button>
+      <input type="text" id="l0sbbf" size="30"/>
     </p>
     <p>
-      <audio controls preload src="@SHA@.@EXT@" type="audio/@EXT@"></audio>
+      <button onClick="fn_off()">nofullscrn</button>
+      <button onClick="fs_dec()">font-=1px</button>
+      <button onClick="lh_dec()">lineHeight-=10%*lH0</button>
+    </p>
+    <p>
+      <button onClick="fn_on()">fullscreen</button>
+      <button onClick="fs_inc()">font+=1px</button>
+      <button onClick="lh_inc()">lineHeight+=10%*lH0</button>
+    </p>
+    <p>
+      <audio controls loop preload src="@SHA@.@EXT@" type="audio/@EXT@"></audio>
     </p>
 @LRC@
-    <p>
-      <script src="style.js"></script>
-    </p>
+    <div id="bottom_padding" class="p7skbc"></div>
+    <script src="style.js"></script>
   </body>
 </html>

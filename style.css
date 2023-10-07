@@ -8,10 +8,21 @@
   font-family: "Gamja Flower", sans-serif;
 }
 
+/* less important text */
+.x1p8df {
+	color: gray;
+}
+
+/* end padding */
+.p7skbc {
+	padding-top: 800px;
+}
+
 button {
   font-family: monospace, sans-serif;
 }
 
 audio {
+  display: block;
   width: 100%;
 }
