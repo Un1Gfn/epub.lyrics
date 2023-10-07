@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "Gamja Flower";
+  src: url(GamjaFlower-Regular.ttf);
+}
+
+.lrlef9 {
+  text-indent: 0;
+  font-family: "Gamja Flower", sans-serif;
+}
+
+button {
+  font-family: monospace, sans-serif;
+}
+
+audio {
+  width: 100%;
+}

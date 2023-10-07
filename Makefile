@@ -5,6 +5,7 @@ endif
 
 default:
 	$(MAKE) clean
+	$(MAKE) -C calc
 	$(MAKE) build
 	$(MAKE) run
 
@@ -12,7 +13,7 @@ build:
 	./build.zsh
 
 run:
-	{ [ xDarwin = x"$$(uname -o)" ] && lighttpd -f ./lighttpd.conf -D; } || true
+	{ [ xDarwin = x"$$(uname -o)" ] && lighttpd -tt -f ./lighttpd.conf && lighttpd -f ./lighttpd.conf -D; } || true
 	{ [ xAndroid = x"$$(uname -o)" ] && busybox httpd -f -v -p 8080 -h /sdcard/httpd; } || true
 
 # adb.all:

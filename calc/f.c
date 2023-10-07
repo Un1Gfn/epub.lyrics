@@ -5,7 +5,7 @@
 #define NDEBUG 1
 #include "f.h"
 
-#define INDENT "    "
+#define INDENT "  "
 
 char *root=NULL;
 
@@ -54,7 +54,7 @@ char *f_appendline(char* s, char*sa){
 
 char *f_appendpar(char* s, char*sa){
   char *r=NULL;
-  asprintf(&r, "%s" INDENT INDENT "<p>\n%s" INDENT INDENT "</p>\n", s?s:"", sa);
+  asprintf(&r, "%s" INDENT INDENT "<p class=\"lrlef9\">\n%s" INDENT INDENT "</p>\n", s?s:"", sa);
   free(s);
   free(sa);
   DEBUGWRAPPER(printf("| +G | %s\n", r));
